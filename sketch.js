@@ -65,7 +65,7 @@ function draw() {
       translate(objects[i].x, objects[i].y);
       rotate(objects[i].rotation);
       objects[i].rotation += objects[i].rot_change;
-      fill(objects[i].col);
+      if (objects[i].col) fill(objects[i].col);
       objects[i].img == null ? circle(0, 0, objects[i].rad) :image(objects[i].img, 0, 0, objects[i].rad, objects[i].rad);
       objects[i].angle += objects[i].move;
     pop();
@@ -80,7 +80,7 @@ function draw() {
         translate(dir.x, dir.y);
         rotate(dir.rotation);
         dir.rotation += dir.rot_change;
-        fill(dir.col);
+        if (dir.col) fill(dir.col);
         dir.img == null ? circle(0, 0, dir.rad) :image(dir.img, 0, 0, dir.rad, dir.rad);
         dir.angle += dir.move;
       pop();
