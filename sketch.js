@@ -7,7 +7,7 @@ class star{
 }
 class object{
 
-  constructor(rad, orbit, img, col, move, rot_chng, satellites){
+  constructor(rad, orbit, options, move, rot_chng, satellites){
 
     this.x = 0;
     this.y = 0; 
@@ -15,12 +15,12 @@ class object{
     this.rad = rad;
     this.angle = 0;
     this.orbit = orbit;
-    this.img = img;
-    this.col = col;
+    this.img = options.img;
+    this.col = options.col;
     this.rotation = 0.1;
     this.move = move;
     this.rot_change = rot_chng;
-    this.satellites = satellites;
+    this.satellites = satellites || [];
   }
 
 }
@@ -28,12 +28,12 @@ class object{
 
 const stars = [];
 
-moon = new object(10, 50, null, 200, -2, 0.6, []);
+moon = new object(10, 50, {col: 200}, -2, 0.6);
 
 // (promien plnety, promien orbity, img, kolor(in dev), prędkość ruchu, satelity)
 const objects = [
-  earth = new object(40, 240, "images/earth.png", 200, 0.5, 1, [moon]),
-  mars = new object(60, 320, null, 100, 0.3, 1, [])
+  earth = new object(40, 240, {img: "images/earth.png"}, 0.5, 1, [moon]),
+  mars = new object(60, 320, {col: 100}, 0.3, 1)
 ];
 
 
