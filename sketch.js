@@ -1,28 +1,35 @@
 
 class object{
 
-  constructor(x, y, r, a, o, img){
+  constructor(x, y, rad, angle, orbit, img, col, move, rot_chng){
 
     this.x = x;
     this.y = y; 
     this.history = [];
-    this.rad = r;
-    this.angle = a;
-    this.orbit = o;
+    this.rad = rad;
+    this.angle = angle;
+    this.orbit = orbit;
     this.img = img;
+    this.col = col;
+    this.rotation = 0.1;
+    this.move = move;
+    this.rot_change = rot_chng;
   }
 
 }
 
 
 const stars = [];
-let earth = new object(0, 0, 80, 0, 400, null);
-let moon = new object(0, 0, 20, 0, 100, null);
 
-let x8 = 0;
+const objects = [
+  earth = new object(0, 0, 80, 0, 400, "images/earth.png", 200 ,0.664, 0.1),
+  moon = new object(0, 0, 20, 0, 100, null, 200, -2, 0.6)
+];
+
 
 function preload(){
-  earth.img = loadImage('images/earth.png');
+  for(let i = 0; i < objects.length; i++){
+    if(objects[i].img != null){objects[i].img = loadImage(objects[i].img);}}
 }
 
 
@@ -31,7 +38,7 @@ function setup() {
   imageMode(CENTER);
   angleMode(DEGREES); 
 
-  for(let i = 0; i < 80; i++){
+  for(let i = 0; i < 100; i++){
     stars.push(new object(random(0, 2100), random(0, 1200), random(1, 9), null));
   }
 }
@@ -40,20 +47,22 @@ function setup() {
 function draw() {
 
   stat();
+  for(let i = 0; i < objects.length ; i++){
+    objects[i].x = width/2 + objects[i].orbit * cos(objects[i].angle); objects[i].y =  height/2 + objects[i].orbit * sin(objects[i].angle);
+    push();
+      translate(objects[i].x, objects[i].y);
+      rotate(objects[i].rot_change); objects[i].rot_change += objects[i].rot_change;
+      objects[i].rotation += objects[i].rotation_change;
+      fill(200);
+      objects[i].img == null ? circle(0, 0, objects[i].rad) :image(objects[i].img, 0, 0, objects[i].rad, objects[i].rad);
+      objects[i].angle += objects[i].move;
+    pop();
 
-  earth.x = width/2 + earth.orbit * cos(earth.angle); earth.y =  height/2 + earth.orbit * sin(earth.angle);
+  }
 
-  push();
-    translate(earth.x, earth.y);
-    rotate(x8);
-    x8 += 0.8;
-    image(earth.img, 0, 0, earth.rad, earth.rad);//earth
-    earth.angle += 0.664;
-  pop();
-
-  fill(200);
-  circle(earth.x + moon.orbit * cos(moon.angle), earth.y + moon.orbit * sin(moon.angle), moon.rad);
-  moon.angle += -2;
+  // fill(200);
+  // circle(earth.x + moon.orbit * cos(moon.angle), earth.y + moon.orbit * sin(moon.angle), moon.rad);
+  // moon.angle += moon.move;
  
   
 }
@@ -63,7 +72,7 @@ function stat(){
   background(10, 15, 27);
   
   fill(255);
-  for(let i = 0; i < 80; i++){
+  for(let i = 0; i < 100; i++){
     circle(stars[i].x, stars[i].y, stars[i].rad);
   }
 
