@@ -17,7 +17,7 @@ class object{
     this.orbit = orbit;
     this.img = img;
     this.col = col;
-    this.rotation = 0.1;
+    this.rot = 0.1;
     this.move = move;
     this.rot_change = rot_chng;
     this.satellites = satellites;
@@ -33,7 +33,8 @@ moon = new object(10, 50, null, 200, -2, 0.6, []);
 // (promien plnety, promien orbity, img, kolor(in dev), prędkość ruchu, satelity)
 const objects = [
   earth = new object(40, 240, "images/earth.png", 200, 0.5, 1, [moon]),
-  mars = new object(60, 320, null, 100, 0.3, 1, [])
+  mars = new object(60, 320, null, 100, 0.3, 1, []),
+  idk = new object(80, 400, null, 300, 0.6, 3, [])
 ];
 
 
@@ -63,8 +64,8 @@ function draw() {
     objects[i].y =  height/2 + objects[i].orbit * sin(objects[i].angle);
     push();
       translate(objects[i].x, objects[i].y);
-      rotate(objects[i].rotation);
-      objects[i].rotation += objects[i].rot_change;
+      rotate(objects[i].rot);
+      objects[i].rot += objects[i].rot_change;
       fill(objects[i].col);
       objects[i].img == null ? circle(0, 0, objects[i].rad) :image(objects[i].img, 0, 0, objects[i].rad, objects[i].rad);
       objects[i].angle += objects[i].move;
@@ -78,8 +79,8 @@ function draw() {
 
       push();
         translate(dir.x, dir.y);
-        rotate(dir.rotation);
-        dir.rotation += dir.rot_change;
+        rotate(dir.rot);
+        dir.rot += dir.rot_change;
         fill(dir.col);
         dir.img == null ? circle(0, 0, dir.rad) :image(dir.img, 0, 0, dir.rad, dir.rad);
         dir.angle += dir.move;
