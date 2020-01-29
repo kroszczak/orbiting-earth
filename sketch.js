@@ -1,19 +1,26 @@
-
+class star{
+  constructor(x, y, r){
+    this.x = x;
+    this.y = y;
+    this.rad = r;
+  }
+}
 class object{
 
-  constructor(x, y, rad, angle, orbit, img, col, move, rot_chng){
+  constructor(rad, orbit, img, col, move, rot_chng, satellites){
 
-    this.x = x;
-    this.y = y; 
+    this.x = 0;
+    this.y = 0; 
     this.history = [];
     this.rad = rad;
-    this.angle = angle;
+    this.angle = 0;
     this.orbit = orbit;
     this.img = img;
     this.col = col;
     this.rotation = 0.1;
     this.move = move;
     this.rot_change = rot_chng;
+    this.satellites = satellites;
   }
 
 }
@@ -21,9 +28,12 @@ class object{
 
 const stars = [];
 
+moon = new object(10, 50, null, 200, -2, 0.6, []);
+
+// (promien plnety, promien orbity, img, kolor(in dev), prędkość ruchu, satelity)
 const objects = [
-  earth = new object(0, 0, 80, 0, 400, "images/earth.png", 200 ,0.664, 0.1),
-  moon = new object(0, 0, 20, 0, 100, null, 200, -2, 0.6)
+  earth = new object(40, 240, "images/earth.png", 200, 0.5, 1, [moon]),
+  mars = new object(60, 320, null, 100, 0.3, 1, [])
 ];
 
 
@@ -39,7 +49,7 @@ function setup() {
   angleMode(DEGREES); 
 
   for(let i = 0; i < 100; i++){
-    stars.push(new object(random(0, 2100), random(0, 1200), random(1, 9), null));
+    stars.push(new star(random(0, 2100), random(0, 1200), random(1, 9)));
   }
 }
 
@@ -48,23 +58,35 @@ function draw() {
 
   stat();
   for(let i = 0; i < objects.length ; i++){
-    objects[i].x = width/2 + objects[i].orbit * cos(objects[i].angle); objects[i].y =  height/2 + objects[i].orbit * sin(objects[i].angle);
+
+    objects[i].x = width/2 + objects[i].orbit * cos(objects[i].angle);
+    objects[i].y =  height/2 + objects[i].orbit * sin(objects[i].angle);
     push();
       translate(objects[i].x, objects[i].y);
-      rotate(objects[i].rot_change); objects[i].rot_change += objects[i].rot_change;
-      objects[i].rotation += objects[i].rotation_change;
-      fill(200);
+      rotate(objects[i].rotation);
+      objects[i].rotation += objects[i].rot_change;
+      fill(objects[i].col);
       objects[i].img == null ? circle(0, 0, objects[i].rad) :image(objects[i].img, 0, 0, objects[i].rad, objects[i].rad);
       objects[i].angle += objects[i].move;
     pop();
 
-  }
+    for(let j = 0; j < objects[i].satellites.length; j++){
 
-  // fill(200);
-  // circle(earth.x + moon.orbit * cos(moon.angle), earth.y + moon.orbit * sin(moon.angle), moon.rad);
-  // moon.angle += moon.move;
- 
-  
+      dir = objects[i].satellites[j];
+      dir.x = objects[i].x + dir.orbit * cos(dir.angle);
+      dir.y =  objects[i].y + dir.orbit * sin(dir.angle);
+
+      push();
+        translate(dir.x, dir.y);
+        rotate(dir.rotation);
+        dir.rotation += dir.rot_change;
+        fill(dir.col);
+        dir.img == null ? circle(0, 0, dir.rad) :image(dir.img, 0, 0, dir.rad, dir.rad);
+        dir.angle += dir.move;
+      pop();
+    }
+
+  }
 }
 
 
@@ -77,5 +99,5 @@ function stat(){
   }
 
   fill(250, 180, 0);
-  circle(width/2, height/2, 200);
+  circle(width/2, height/2, 100);
 }
