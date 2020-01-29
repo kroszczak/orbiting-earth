@@ -33,7 +33,7 @@ moon = new object(10, 50, {col: 200}, -2, 0.6);
 // (promien plnety, promien orbity, img, kolor(in dev), prędkość ruchu, satelity)
 const objects = [
   earth = new object(40, 240, {img: "images/earth.png"}, 0.5, 1, [moon]),
-  mars = new object(60, 320, {col: 100}, 0.3, 1)
+  mars = new object(60, 320, {col: 100}, 0.3, 1),
   idk = new object(80, 400, {col: 300}, 0.6, 3)
 ];
 
