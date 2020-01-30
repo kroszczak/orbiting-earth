@@ -11,13 +11,19 @@ class test_class{
 
   display(){
 
+    fill(25);
     circle(this.x, this.y, this.r);
     this.x += this.vector[0]; this.y += this.vector[1];
     this.history.unshift(createVector(this.x, this.y));
-    arr = this.history.slice(0, 100); 
+    arr = this.history.slice(0, 80); 
     arr.forEach((item, index) => {
-      index < 15 ? square(item.x + random(-2, +2), item.y + random(-2, +2), 6): index < 30 ? square(item.x + random(-2, +2), item.y + random(-2, +2), 5): index < 45 ? square(item.x + random(-2, +2), item.y + random(-2, +2), 4): index < 60 ? square(item.x + random(-2, +2), item.y + random(-2, +2), 3): index < 75 ? square(item.x + random(-2, +2), item.y + random(-2, +2), 1.9): index < 85 ? square(item.x + random(-2, +2), item.y + random(-2, +2), 1.6): index < 95? square(item.x + random(-2, +2), item.y + random(-2, +2), 1.2): square(item.x + random(-2, +2), item.y + random(-2, +2), 1);
+      random() < 0.50 ? fill(139,0,0) : fill(255,69,0);
+      index < 15 ? square(item.x + random(-2, +2), item.y + random(-2, +2), 8): index < 30 ? square(item.x + random(-2, +2), item.y + random(-2, +2), 5): index < 45 ? square(item.x + random(-2, +2), item.y + random(-2, +2), 4): index < 60 ? square(item.x + random(-2, +2), item.y + random(-2, +2), 3): index < 75 ? square(item.x + random(-2, +2), item.y + random(-2, +2), 1.9): index < 85 ? square(item.x + random(-2, +2), item.y + random(-2, +2), 1.6): index < 95? square(item.x + random(-2, +2), item.y + random(-2, +2), 1.2): square(item.x + random(-2, +2), item.y + random(-2, +2), 1);
     })
+    for(let i = 0; i < 30; i++){
+      random() < 0.50 ? fill(139,0,0) : fill(255,69,0);
+      square(this.x + random(-16, 6), this.y + random(-16, 6), 6);
+    }
   }
 }
 
