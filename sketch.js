@@ -27,7 +27,6 @@ class test_class{
   }
 }
 
-
 class star{
   constructor(x, y, r){
     this.x = x;
@@ -35,7 +34,6 @@ class star{
     this.r = r;
   }
 }
-
 
 class object{
 
@@ -79,10 +77,6 @@ class object{
   }
 }
 
-
-
-
-
 let arr = [];
 const stars = [];
 const ast = [];
@@ -96,17 +90,10 @@ const objects = [
   solar_system = new object(0, 0, {col: 0}, 0, 0, [sun])
 ];
 
-
-
-
-
-
-
 function preload(){
   for(let i = 0; i < objects.length; i++){
     if(objects[i].img != null){objects[i].img = loadImage(objects[i].img);}}
 }
-
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -120,14 +107,11 @@ function setup() {
     ast.push(new test_class(random(2,4), random(1,3), random(0, 0), random(0, 1800), random(20, 22)));}}
 
 
-
 function draw() {
   stat();
   for(let i = 0; i < ast.length; i++){
     ast[i].display();}
   solar_system.display(width/2, height/2);}
-
-
 
 function stat(){
   background(10, 15, 27);
